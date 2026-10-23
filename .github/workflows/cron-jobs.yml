@@ -10,7 +10,9 @@ jobs:
     steps:
       - name: attach-next-reel (every 10 min)
         if: github.event.schedule != '0 5 * * *'
-        run: curl -fsS -m 120 -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}" "https://openreply-eventimio.netlify.app/api/cron/attach-next-reel"
+        run: >-
+          curl -fsS -m 120 -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}"
+          "https://openreply-eventimio.netlify.app/api/cron/attach-next-reel"
       - name: refresh-tokens + snapshot-followers (daily)
         if: github.event.schedule == '0 5 * * *' || github.event_name == 'workflow_dispatch'
         run: |
